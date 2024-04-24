@@ -33,7 +33,7 @@ def run():
     st.write("By Group 2 - BSCS 3A || [VARGAS, Regine B., VIÑAS, Christian Joseph C., TUMANENG, Marc Christian D.]")
    
     
-    st.sidebar.success("Select a cryptographic algorithm.")
+    st.sidebar.success("Select a Cryptographic Algorithm.")
     st.write("---")
     st.markdown(
         """This Application implements various cryptographic techniques to secure communication,
