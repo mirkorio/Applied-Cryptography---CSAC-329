@@ -14,6 +14,10 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+import subprocess
+
+def run_script(script_name):
+    subprocess.run(["streamlit", "run", script_name])
 
 LOGGER = get_logger(__name__)
 
@@ -36,33 +40,44 @@ def run():
        
     """
     )
+    st.write("---")
 
-    # Symmetric
-    st.write("## Symmetric - table")
-    if st.button("1_Block_Cipher.py"):
-        st.markdown("[1_Block_Cipher.py](https://applied-cryptography---csac-329-xbz9unqewf4bvgrkwpnfsr.streamlit.app/1_Block_Cipher")
-    if st.button("2_Ceasar_Cipher.py"):
-        st.markdown("[2_Ceasar_Cipher.py](https://example.com/2_Ceasar_Cipher.py)")
-    if st.button("3_XOR_Cipher.py"):
-        st.markdown("[3_XOR_Cipher.py](https://example.com/3_XOR_Cipher.py)")
+    st.write("## Symmetric Encryption")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("Block Cipher"):
+            run_script("1_Block_Cipher.py")
+    with col2:
+        if st.button("Ceasar Cipher"):
+            run_script("2_Ceasar_Cipher.py")
+    with col3:
+        if st.button("XOR Cipher"):
+            run_script("3_XOR_Cipher.py")
 
-    # Asymmetric
-    st.write("## Asymmetric - table")
-    if st.button("4_Diffie_Hellman.py"):
-        st.markdown("[4_Diffie_Hellman.py](https://example.com/4_Diffie_Hellman.py)")
-    if st.button("5_RSA.py"):
-        st.markdown("[5_RSA.py](https://example.com/5_RSA.py)")
+    st.write("## Asymmetric Encryption")
+    col4, col5 = st.columns(2)
+    with col4:
+        if st.button("Diffie-Hellman"):
+            run_script("4_Diffie_Hellman.py")
+    with col5:
+        if st.button("RSA"):
+            run_script("5_RSA.py")
 
-    # Hashing
-    st.write("## Hashing - table")
-    if st.button("6_SHA_1.py"):
-        st.markdown("[6_SHA_1.py](https://example.com/6_SHA_1.py)")
-    if st.button("7_SHA_2.py"):
-        st.markdown("[7_SHA_2.py](https://example.com/7_SHA_2.py)")
-    if st.button("8_SHA_3.py"):
-        st.markdown("[8_SHA_3.py](https://example.com/8_SHA_3.py)")
-    if st.button("9_MD_5.py"):
-        st.markdown("[9_MD_5.py](https://example.com/9_MD_5.py)")
+    st.write("## Hashing")
+    col6, col7, col8, col9 = st.columns(4)
+    with col6:
+        if st.button("SHA-1"):
+            run_script("6_SHA_1.py")
+    with col7:
+        if st.button("SHA-2"):
+            run_script("7_SHA_2.py")
+    with col8:
+        if st.button("SHA-3"):
+            run_script("8_SHA_3.py")
+    with col9:
+        if st.button("MD5"):
+            run_script("9_MD_5.py")
+   
 
 
 if __name__ == "__main__":
