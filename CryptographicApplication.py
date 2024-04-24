@@ -37,7 +37,7 @@ def run():
     """
     )
 
-     # Symmetric
+    # Symmetric
     st.write("## Symmetric - table")
     if st.button("1_Block_Cipher.py"):
         st.markdown("[1_Block_Cipher.py](https://example.com/1_Block_Cipher.py)")
@@ -63,7 +63,6 @@ def run():
         st.markdown("[8_SHA_3.py](https://example.com/8_SHA_3.py)")
     if st.button("9_MD_5.py"):
         st.markdown("[9_MD_5.py](https://example.com/9_MD_5.py)")
-
 
 
 if __name__ == "__main__":
