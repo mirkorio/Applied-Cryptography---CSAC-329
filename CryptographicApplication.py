@@ -46,7 +46,7 @@ def run():
     col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("Block Cipher"):
-            run_script("1_Block_Cipher.py")
+            run_script("🔒1_Block_Cipher.py")
     with col2:
         if st.button("Ceasar Cipher"):
             run_script("2_Ceasar_Cipher.py")
