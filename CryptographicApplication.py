@@ -37,6 +37,34 @@ def run():
     """
     )
 
+     # Symmetric
+    st.write("## Symmetric - table")
+    if st.button("1_Block_Cipher.py"):
+        st.markdown("[1_Block_Cipher.py](https://example.com/1_Block_Cipher.py)")
+    if st.button("2_Ceasar_Cipher.py"):
+        st.markdown("[2_Ceasar_Cipher.py](https://example.com/2_Ceasar_Cipher.py)")
+    if st.button("3_XOR_Cipher.py"):
+        st.markdown("[3_XOR_Cipher.py](https://example.com/3_XOR_Cipher.py)")
+
+    # Asymmetric
+    st.write("## Asymmetric - table")
+    if st.button("4_Diffie_Hellman.py"):
+        st.markdown("[4_Diffie_Hellman.py](https://example.com/4_Diffie_Hellman.py)")
+    if st.button("5_RSA.py"):
+        st.markdown("[5_RSA.py](https://example.com/5_RSA.py)")
+
+    # Hashing
+    st.write("## Hashing - table")
+    if st.button("6_SHA_1.py"):
+        st.markdown("[6_SHA_1.py](https://example.com/6_SHA_1.py)")
+    if st.button("7_SHA_2.py"):
+        st.markdown("[7_SHA_2.py](https://example.com/7_SHA_2.py)")
+    if st.button("8_SHA_3.py"):
+        st.markdown("[8_SHA_3.py](https://example.com/8_SHA_3.py)")
+    if st.button("9_MD_5.py"):
+        st.markdown("[9_MD_5.py](https://example.com/9_MD_5.py)")
+
+
 
 if __name__ == "__main__":
     run()
