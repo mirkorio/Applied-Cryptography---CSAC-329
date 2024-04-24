@@ -40,7 +40,7 @@ def run():
     # Symmetric
     st.write("## Symmetric - table")
     if st.button("1_Block_Cipher.py"):
-        st.markdown("[1_Block_Cipher.py](https://example.com/1_Block_Cipher.py)")
+        st.markdown("[1_Block_Cipher.py](https://applied-cryptography---csac-329-xbz9unqewf4bvgrkwpnfsr.streamlit.app/1_Block_Cipher")
     if st.button("2_Ceasar_Cipher.py"):
         st.markdown("[2_Ceasar_Cipher.py](https://example.com/2_Ceasar_Cipher.py)")
     if st.button("3_XOR_Cipher.py"):
