@@ -26,7 +26,7 @@ def run():
   
     st.write("Applied Cryptography - CSAC 329 || Final Project")
     st.write("# Cryptographic Application 🔒")
-    st.write("By Group 2 - BSCS 3A [VARGAS, Regine B., VIÑAS, Christian Joseph C., TUMANENG, Marc Christian D.]")
+    st.write("By Group 2 - BSCS 3A || [VARGAS, Regine B., VIÑAS, Christian Joseph C., TUMANENG, Marc Christian D.]")
    
     
     st.sidebar.success("Select a cryptographic algorithm.")
