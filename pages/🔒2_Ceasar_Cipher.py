@@ -29,13 +29,13 @@ def encrypt_file(input_file, output_file_path, shift):
         f.write(encrypted_text)
     return encrypted_text
 
-# Function to decrypt a file
 def decrypt_file(input_file, output_file_path, shift):
-    decrypted_text = caesar_cipher(input_file.read().decode('utf-8'), -shift)
+    input_file_content = input_file.read()
+    decrypted_text = caesar_cipher(input_file_content.decode('utf-8'), -shift)
     print("Decrypted text:", decrypted_text)  # Add this line to print decrypted text
     if decrypted_text:
-        with open(output_file_path, 'w') as f:
-            f.write(decrypted_text)
+        with open(output_file_path, 'wb') as f:  # Open output file in binary mode
+            f.write(decrypted_text.encode('utf-8'))  # Encode decrypted text to bytes
         return decrypted_text
     else:
         return None
