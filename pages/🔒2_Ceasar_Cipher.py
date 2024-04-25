@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+from io import BytesIO
 
 def caesar_cipher(text, shift):
     encrypted_text = ""
@@ -20,21 +22,15 @@ def caesar_cipher(text, shift):
             encrypted_text += char
     return encrypted_text
 
-def encrypt_file(input_file_path, output_file_path, shift):
-    with open(input_file_path, 'r') as f:
-        text = f.read()
-    
+def encrypt_file(input_file, output_file_path, shift):
+    text = input_file.read()
     encrypted_text = caesar_cipher(text, shift)
-    
     with open(output_file_path, 'w') as f:
         f.write(encrypted_text)
 
-def decrypt_file(input_file_path, output_file_path, shift):
-    with open(input_file_path, 'r') as f:
-        text = f.read()
-    
+def decrypt_file(input_file, output_file_path, shift):
+    text = input_file.read()
     decrypted_text = caesar_cipher(text, -shift)
-    
     with open(output_file_path, 'w') as f:
         f.write(decrypted_text)
 
@@ -65,18 +61,17 @@ def main():
 
     elif mode in ["Encrypt File", "Decrypt File"]:
         st.subheader("File Encryption and Decryption")
-        input_file_path = st.file_uploader("Upload the input file:", type=["txt"])
-        if input_file_path is not None:
+        input_file = st.file_uploader("Upload the input file:", type=["txt"])
+        if input_file is not None:
             output_file_path = st.text_input("Enter the output file path:")
             shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, step=1)
 
-            if mode == "Encrypt File":
-                if st.button("Encrypt File"):
-                    encrypt_file(input_file_path.name, output_file_path, shift)
+            if st.button("Process File"):
+                if mode == "Encrypt File":
+                    encrypt_file(input_file, output_file_path, shift)
                     st.success("File encrypted successfully!")
-            elif mode == "Decrypt File":
-                if st.button("Decrypt File"):
-                    decrypt_file(input_file_path.name, output_file_path, shift)
+                elif mode == "Decrypt File":
+                    decrypt_file(input_file, output_file_path, shift)
                     st.success("File decrypted successfully!")
 
 if __name__ == "__main__":
