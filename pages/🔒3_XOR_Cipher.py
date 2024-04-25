@@ -1,50 +1,39 @@
 import streamlit as st
 
-st.header("XOR Cipher")
+def xor_cipher(text, key):
+    encrypted_text = ""
+    for char in text:
+        encrypted_text += chr(ord(char) ^ key)
+    return encrypted_text
 
-input_text = st.text_area("Plain Text: ")
-plaintext = bytes(input_text.encode())
+def main():
+    st.title("XOR Cipher Encryption and Decryption")
 
-key = st.text_input("Key: ")
-key = bytes(key.encode())
+    mode = st.sidebar.selectbox("Mode", ["Encrypt", "Decrypt"])
 
+    if mode == "Encrypt":
+        st.subheader("Encryption")
+        message = st.text_area("Enter your message:")
+        key = st.number_input("Enter the encryption key (an integer):", min_value=0, step=1)
+        
+        if st.button("Encrypt"):
+            if message:
+                encrypted_message = xor_cipher(message, key)
+                st.success("Message encrypted successfully!")
+                st.text("Encrypted Message:")
+                st.text(encrypted_message)
 
-if st.button("Submit"):
-    def xor_encrypt(plaintext, key):
-        """Encrypts plaintext using XOR cipher with the given key, printing bits involved."""
+    elif mode == "Decrypt":
+        st.subheader("Decryption")
+        encrypted_message = st.text_area("Enter the encrypted message:")
+        key = st.number_input("Enter the decryption key used:", min_value=0, step=1)
+        
+        if st.button("Decrypt"):
+            if encrypted_message:
+                decrypted_message = xor_cipher(encrypted_message, key)
+                st.success("Message decrypted successfully!")
+                st.text("Decrypted Message:")
+                st.text(decrypted_message)
 
-        ciphertext = bytearray()
-        for i in range(len(plaintext)):
-            plaintext_byte = plaintext[i]
-            key_byte = key[i % len(key)]
-            encrypted_byte = plaintext_byte ^ key_byte
-            ciphertext.append(encrypted_byte)
-            
-            st.write(f"Plaintext byte: {format(plaintext_byte,'08b')} = {chr(plaintext_byte)}")
-            st.write(f"Key byte:       {format(key_byte, '08b')} = {chr(key_byte)}")
-            st.write(f"XOR result:     {format(encrypted_byte, '08b')} = {chr(encrypted_byte)}")
-            st.write("--------------------")
-
-        return ciphertext
-
-    def xor_decrypt(ciphertext, key):
-        """Decrypts ciphertext using XOR cipher with the given key"""
-        return xor_encrypt(ciphertext,key)# XOR decryption is the same as encryption
-
-
-
-    if plaintext.decode() == key.decode():
-        st.write("Plaintext should not be equal to the key")
-    elif not plaintext or not key:
-        st.write("Invalid, Enter your key!")
-    elif len(plaintext.decode()) < len(key.decode()):
-        st.write("Plaintext length should be equal or greater than the length of key")
-    else:
-        encrypted_text = xor_encrypt(plaintext,key)
-        st.write("Ciphertext:", encrypted_text.decode())
-        decrypted_text = xor_decrypt(encrypted_text,key)
-        st.write("Decrypted:", decrypted_text.decode())
-    st.snow()
-
-
-
+if __name__ == "__main__":
+    main()
