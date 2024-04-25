@@ -3,34 +3,35 @@ import os
 from io import BytesIO
 
 def caesar_cipher(text, shift):
-    encrypted_text = ""
-    for char in text:
-        if char.isalpha():
-            shifted = ord(char) + shift
-            if char.islower():
-                if shifted > ord('z'):
-                    shifted -= 26
-                elif shifted < ord('a'):
-                    shifted += 26
-            elif char.isupper():
-                if shifted > ord('Z'):
-                    shifted -= 26
-                elif shifted < ord('A'):
-                    shifted += 26
-            encrypted_text += chr(shifted)
-        else:
-            encrypted_text += char
-    return encrypted_text
+    if isinstance(text, str):
+        encrypted_text = ""
+        for char in text:
+            if char.isalpha():
+                shifted = ord(char) + shift
+                if char.islower():
+                    if shifted > ord('z'):
+                        shifted -= 26
+                    elif shifted < ord('a'):
+                        shifted += 26
+                elif char.isupper():
+                    if shifted > ord('Z'):
+                        shifted -= 26
+                    elif shifted < ord('A'):
+                        shifted += 26
+                encrypted_text += chr(shifted)
+            else:
+                encrypted_text += char
+        return encrypted_text
+    elif isinstance(text, BytesIO):
+        return caesar_cipher(text.read().decode('utf-8'), shift)
 
 def encrypt_file(input_file, output_file_path, shift):
-    text = input_file.read()
-    encrypted_text = caesar_cipher(text, shift)
+    encrypted_text = caesar_cipher(input_file, shift)
     with open(output_file_path, 'w') as f:
         f.write(encrypted_text)
 
 def decrypt_file(input_file, output_file_path, shift):
-    text = input_file.read()
-    decrypted_text = caesar_cipher(text, -shift)
+    decrypted_text = caesar_cipher(input_file, -shift)
     with open(output_file_path, 'w') as f:
         f.write(decrypted_text)
 
