@@ -20,34 +20,64 @@ def caesar_cipher(text, shift):
             encrypted_text += char
     return encrypted_text
 
+def encrypt_file(input_file_path, output_file_path, shift):
+    with open(input_file_path, 'r') as f:
+        text = f.read()
+    
+    encrypted_text = caesar_cipher(text, shift)
+    
+    with open(output_file_path, 'w') as f:
+        f.write(encrypted_text)
+
+def decrypt_file(input_file_path, output_file_path, shift):
+    with open(input_file_path, 'r') as f:
+        text = f.read()
+    
+    decrypted_text = caesar_cipher(text, -shift)
+    
+    with open(output_file_path, 'w') as f:
+        f.write(decrypted_text)
+
 def main():
     st.title("Caesar Cipher Encryption and Decryption")
 
-    mode = st.sidebar.selectbox("Mode", ["Encrypt", "Decrypt"])
+    mode = st.sidebar.selectbox("Mode", ["Encrypt Text", "Decrypt Text", "Encrypt File", "Decrypt File"])
 
-    if mode == "Encrypt":
-        st.subheader("Encryption")
+    if mode in ["Encrypt Text", "Decrypt Text"]:
+        st.subheader("Text Encryption and Decryption")
         message = st.text_area("Enter your message:")
         shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, step=1)
         
-        if st.button("Encrypt"):
-            if message:
-                encrypted_message = caesar_cipher(message, shift)
-                st.success("Message encrypted successfully!")
-                st.text("Encrypted Message:")
-                st.text(encrypted_message)
+        if mode == "Encrypt Text":
+            if st.button("Encrypt"):
+                if message:
+                    encrypted_message = caesar_cipher(message, shift)
+                    st.success("Message encrypted successfully!")
+                    st.text("Encrypted Message:")
+                    st.text(encrypted_message)
+        elif mode == "Decrypt Text":
+            if st.button("Decrypt"):
+                if message:
+                    decrypted_message = caesar_cipher(message, -shift)
+                    st.success("Message decrypted successfully!")
+                    st.text("Decrypted Message:")
+                    st.text(decrypted_message)
 
-    elif mode == "Decrypt":
-        st.subheader("Decryption")
-        encrypted_message = st.text_area("Enter the encrypted message:")
-        shift = st.number_input("Enter the shift value used for encryption:", min_value=1, max_value=25, step=1)
-        
-        if st.button("Decrypt"):
-            if encrypted_message:
-                decrypted_message = caesar_cipher(encrypted_message, -shift)
-                st.success("Message decrypted successfully!")
-                st.text("Decrypted Message:")
-                st.text(decrypted_message)
+    elif mode in ["Encrypt File", "Decrypt File"]:
+        st.subheader("File Encryption and Decryption")
+        input_file_path = st.file_uploader("Upload the input file:", type=["txt"])
+        if input_file_path is not None:
+            output_file_path = st.text_input("Enter the output file path:")
+            shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, step=1)
+
+            if mode == "Encrypt File":
+                if st.button("Encrypt File"):
+                    encrypt_file(input_file_path.name, output_file_path, shift)
+                    st.success("File encrypted successfully!")
+            elif mode == "Decrypt File":
+                if st.button("Decrypt File"):
+                    decrypt_file(input_file_path.name, output_file_path, shift)
+                    st.success("File decrypted successfully!")
 
 if __name__ == "__main__":
     main()
