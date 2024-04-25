@@ -31,9 +31,10 @@ def encrypt_file(input_file, output_file_path, shift):
         st.write("Output file path:", output_file_path)
         with open(output_file_path, 'w') as f:
             f.write(encrypted_text)
+        return encrypted_text  # Return the encrypted text
     else:
         st.error("Please provide a valid output file path.")
-
+        return None  # Return None if the output file path is not provided
 
 def decrypt_file(input_file, output_file_path, shift):
     decrypted_text = caesar_cipher(input_file, -shift)
