@@ -1,45 +1,53 @@
 import streamlit as st
 
-st.header("Caesar Cipher")
+def caesar_cipher(text, shift):
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            shifted = ord(char) + shift
+            if char.islower():
+                if shifted > ord('z'):
+                    shifted -= 26
+                elif shifted < ord('a'):
+                    shifted += 26
+            elif char.isupper():
+                if shifted > ord('Z'):
+                    shifted -= 26
+                elif shifted < ord('A'):
+                    shifted += 26
+            encrypted_text += chr(shifted)
+        else:
+            encrypted_text += char
+    return encrypted_text
 
-text = st.text_input("Enter the text:")
-shift_keys_input = st.text_input("Enter the shift keys separated by spaces:")
-if shift_keys_input:
-    shift_keys = list(map(int, shift_keys_input.split()))
-else:
-    shift_keys = []
+def main():
+    st.title("Caesar Cipher Encryption and Decryption")
 
-if st.button("Submit"):
-    if not text:
-        st.error("Please enter some text.")
-    elif not shift_keys:
-        st.error("Please enter shift keys.")
-    else:
-        def encrypt_decrypt(text, shift_keys, ifdecrypt):
-            result = ""
-            for i, char in enumerate(text):
-                shift_key = shift_keys[i % len(shift_keys)]
-                if 32 <= ord(char) <= 125:
-                    if ifdecrypt:
-                        asc = ord(char) - shift_key
-                    else:
-                        asc = ord(char) + shift_key
-                    while asc > 125:
-                        asc -= 94
-                    while asc < 32:
-                        asc += 94
-                    result += chr(asc)
-                else:
-                    result += char
-                st.write(f"{i} {char} {shift_key} {result[i]}")
-            return result
+    mode = st.sidebar.selectbox("Mode", ["Encrypt", "Decrypt"])
 
-        enc = encrypt_decrypt(text, shift_keys, False)
-        st.write("----------")
-        dec = encrypt_decrypt(enc, shift_keys, True)
-        st.write("----------")
-        st.write("Text:", text)
-        st.write("Shift keys:", *shift_keys)
-        st.write("Cipher:", enc)
-        st.write("Decrypted text:", dec)
-        st.snow()
+    if mode == "Encrypt":
+        st.subheader("Encryption")
+        message = st.text_area("Enter your message:")
+        shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, step=1)
+        
+        if st.button("Encrypt"):
+            if message:
+                encrypted_message = caesar_cipher(message, shift)
+                st.success("Message encrypted successfully!")
+                st.text("Encrypted Message:")
+                st.text(encrypted_message)
+
+    elif mode == "Decrypt":
+        st.subheader("Decryption")
+        encrypted_message = st.text_area("Enter the encrypted message:")
+        shift = st.number_input("Enter the shift value used for encryption:", min_value=1, max_value=25, step=1)
+        
+        if st.button("Decrypt"):
+            if encrypted_message:
+                decrypted_message = caesar_cipher(encrypted_message, -shift)
+                st.success("Message decrypted successfully!")
+                st.text("Decrypted Message:")
+                st.text(decrypted_message)
+
+if __name__ == "__main__":
+    main()
