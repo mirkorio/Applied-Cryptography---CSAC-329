@@ -1,46 +1,42 @@
 import streamlit as st
-import os
 from io import BytesIO
 
+# Function to perform Caesar cipher encryption or decryption
 def caesar_cipher(text, shift):
-    if isinstance(text, str):
-        encrypted_text = ""
-        for char in text:
-            if char.isalpha():
-                shifted = ord(char) + shift
-                if char.islower():
-                    if shifted > ord('z'):
-                        shifted -= 26
-                    elif shifted < ord('a'):
-                        shifted += 26
-                elif char.isupper():
-                    if shifted > ord('Z'):
-                        shifted -= 26
-                    elif shifted < ord('A'):
-                        shifted += 26
-                encrypted_text += chr(shifted)
-            else:
-                encrypted_text += char
-        return encrypted_text
-    elif isinstance(text, BytesIO):
-        return caesar_cipher(text.read().decode('utf-8'), shift)
+    encrypted_text = ""
+    for char in text:
+        if char.isalpha():
+            shifted = ord(char) + shift
+            if char.islower():
+                if shifted > ord('z'):
+                    shifted -= 26
+                elif shifted < ord('a'):
+                    shifted += 26
+            elif char.isupper():
+                if shifted > ord('Z'):
+                    shifted -= 26
+                elif shifted < ord('A'):
+                    shifted += 26
+            encrypted_text += chr(shifted)
+        else:
+            encrypted_text += char
+    return encrypted_text
 
+# Function to encrypt a file
 def encrypt_file(input_file, output_file_path, shift):
-    if output_file_path:
-        encrypted_text = caesar_cipher(input_file, shift)
-        st.write("Output file path:", output_file_path)
-        with open(output_file_path, 'w') as f:
-            f.write(encrypted_text)
-        return encrypted_text  # Return the encrypted text
-    else:
-        st.error("Please provide a valid output file path.")
-        return None  # Return None if the output file path is not provided
+    encrypted_text = caesar_cipher(input_file.read().decode('utf-8'), shift)
+    with open(output_file_path, 'w') as f:
+        f.write(encrypted_text)
+    return encrypted_text
 
+# Function to decrypt a file
 def decrypt_file(input_file, output_file_path, shift):
-    decrypted_text = caesar_cipher(input_file, -shift)
+    decrypted_text = caesar_cipher(input_file.read().decode('utf-8'), -shift)
     with open(output_file_path, 'w') as f:
         f.write(decrypted_text)
+    return decrypted_text
 
+# Main function
 def main():
     st.title("Caesar Cipher Encryption and Decryption")
 
@@ -67,7 +63,7 @@ def main():
                     st.text(decrypted_message)
 
     elif mode in ["Encrypt File", "Decrypt File"]:
-        # File encryption and decryption interface
+        st.subheader("File Encryption and Decryption")
         input_file = st.file_uploader("Upload the input file:", type=["txt"])
         if input_file is not None:
             output_file_path = st.text_input("Enter the output file path:")
@@ -75,19 +71,25 @@ def main():
 
             if st.button("Process File"):
                 if mode == "Encrypt File":
-                    encrypted_text = encrypt_file(input_file.read().decode('utf-8'), output_file_path, shift)
-                    st.success("File encrypted successfully!")
-
-                    # Download button for the encrypted file
-                    st.download_button(
-                        label="Download Encrypted File",
-                        data=BytesIO(encrypted_text.encode('utf-8')),
-                        file_name="encrypted_file.txt",
-                        mime="text/plain"
-                    )
+                    encrypted_text = encrypt_file(input_file, output_file_path, shift)
+                    if encrypted_text is not None:
+                        st.success("File encrypted successfully!")
+                        st.download_button(
+                            label="Download Encrypted File",
+                            data=BytesIO(encrypted_text.encode('utf-8')),
+                            file_name="encrypted_file.txt",
+                            mime="text/plain"
+                        )
                 elif mode == "Decrypt File":
-                    # Decrypt the file (implementation not provided in this snippet)
-                    st.success("File decrypted successfully!")
+                    decrypted_text = decrypt_file(input_file, output_file_path, shift)
+                    if decrypted_text is not None:
+                        st.success("File decrypted successfully!")
+                        st.download_button(
+                            label="Download Decrypted File",
+                            data=BytesIO(decrypted_text.encode('utf-8')),
+                            file_name="decrypted_file.txt",
+                            mime="text/plain"
+                        )
 
 if __name__ == "__main__":
     main()
