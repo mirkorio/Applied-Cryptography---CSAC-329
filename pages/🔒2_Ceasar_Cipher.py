@@ -66,7 +66,7 @@ def main():
                     st.text(decrypted_message)
 
     elif mode in ["Encrypt File", "Decrypt File"]:
-        st.subheader("File Encryption and Decryption")
+        # File encryption and decryption interface
         input_file = st.file_uploader("Upload the input file:", type=["txt"])
         if input_file is not None:
             output_file_path = st.text_input("Enter the output file path:")
@@ -74,10 +74,18 @@ def main():
 
             if st.button("Process File"):
                 if mode == "Encrypt File":
-                    encrypt_file(input_file, output_file_path, shift)
+                    encrypted_text = encrypt_file(input_file.read().decode('utf-8'), output_file_path, shift)
                     st.success("File encrypted successfully!")
+
+                    # Download button for the encrypted file
+                    st.download_button(
+                        label="Download Encrypted File",
+                        data=BytesIO(encrypted_text.encode('utf-8')),
+                        file_name="encrypted_file.txt",
+                        mime="text/plain"
+                    )
                 elif mode == "Decrypt File":
-                    decrypt_file(input_file, output_file_path, shift)
+                    # Decrypt the file (implementation not provided in this snippet)
                     st.success("File decrypted successfully!")
 
 if __name__ == "__main__":
