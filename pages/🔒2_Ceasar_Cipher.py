@@ -26,10 +26,14 @@ def caesar_cipher(text, shift):
         return caesar_cipher(text.read().decode('utf-8'), shift)
 
 def encrypt_file(input_file, output_file_path, shift):
-    encrypted_text = caesar_cipher(input_file, shift)
-    st.write("Output file path:", str(output_file_path))  # Convert output_file_path to string before writing
-    with open(output_file_path, 'w') as f:
-        f.write(encrypted_text)
+    if output_file_path:
+        encrypted_text = caesar_cipher(input_file, shift)
+        st.write("Output file path:", output_file_path)
+        with open(output_file_path, 'w') as f:
+            f.write(encrypted_text)
+    else:
+        st.error("Please provide a valid output file path.")
+
 
 def decrypt_file(input_file, output_file_path, shift):
     decrypted_text = caesar_cipher(input_file, -shift)
