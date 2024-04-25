@@ -27,7 +27,7 @@ def caesar_cipher(text, shift):
 
 def encrypt_file(input_file, output_file_path, shift):
     encrypted_text = caesar_cipher(input_file, shift)
-    print("Output file path:", output_file_path)  # Add this line to print the output file path
+    print("Output file path:", output_file_path)
     with open(output_file_path, 'w') as f:
         f.write(encrypted_text)
 
