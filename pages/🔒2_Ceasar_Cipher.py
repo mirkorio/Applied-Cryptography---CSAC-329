@@ -27,12 +27,12 @@ def caesar_cipher(text, shift):
 
 def main():
     st.header("Caesar Cipher Encryption and Decryption")
-    option = st.radio("Choose an option:", ["Encrypt", "Decrypt"])
+    option = st.radio("Choose mode:", ["Encryption", "Decryption"])
 
-    if option == "Encrypt":
+    if option == "Encryption":
         text = st.text_input("Enter text to encrypt:")
         shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, value=3)
-        if st.button("Encrypt"):
+        if st.button("Encryption"):
             encrypted_text, decoded_details = caesar_cipher(text, shift)
             st.success("Encryption Successful!")
             st.write("### Encryption Results")
@@ -45,10 +45,10 @@ def main():
             st.write("Decoded Details:")
             decoded_table = [["Original Character", "Shift", "Decoded Character"]] + decoded_details
             st.table(decoded_table)
-    elif option == "Decrypt":
+    elif option == "Decryption":
         text = st.text_input("Enter text to decrypt:")
         shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, value=3)
-        if st.button("Decrypt"):
+        if st.button("Decryption"):
             decrypted_text, decoded_details = caesar_cipher(text, -shift)
             st.success("Decryption Successful!")
             st.write("### Decryption Results")
