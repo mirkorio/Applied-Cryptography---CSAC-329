@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.header("Block Cipher - XOR - Encryption and Decryption")
+st.header("Block Cipher - XOR Encryption and Decryption")
 
 def pad(data, block_size):
     padding_length = block_size - len(data) % block_size  
