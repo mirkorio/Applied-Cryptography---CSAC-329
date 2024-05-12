@@ -26,7 +26,7 @@ def caesar_cipher(text, shift):
     return encrypted_text, decoded_details
 
 def main():
-    st.title("Caesar Cipher Encryption and Decryption")
+    st.header("Caesar Cipher Encryption and Decryption")
     option = st.radio("Choose an option:", ["Encrypt", "Decrypt"])
 
     if option == "Encrypt":
