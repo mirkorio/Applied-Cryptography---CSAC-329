@@ -1,11 +1,14 @@
 import streamlit as st
 
-def caesar_cipher(text, shift):
+def caesar_cipher(text, shifts):
     encrypted_text = ""
     decoded_details = []
+    shifts = list(map(int, shifts.split()))
+    shift_index = 0
     for char in text:
         if char.isalpha():
             original_char = char
+            shift = shifts[shift_index]
             shifted = ord(char) + shift
             if char.islower():
                 if shifted > ord('z'):
@@ -20,26 +23,27 @@ def caesar_cipher(text, shift):
             encrypted_char = chr(shifted)
             decoded_details.append((original_char, shift, encrypted_char))
             encrypted_text += encrypted_char
+            shift_index = (shift_index + 1) % len(shifts)
         else:
             encrypted_text += char
             decoded_details.append((char, "N/A", char))
     return encrypted_text, decoded_details
 
 def main():
-    st.header("Caesar Cipher Encryption and Decryption")
+    st.title("Caesar Cipher Encryption and Decryption")
     option = st.radio("Choose mode:", ["Encryption", "Decryption"])
 
     if option == "Encryption":
         text = st.text_input("Enter text to encrypt:")
-        shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, value=3)
-        if st.button("Encryption"):
-            encrypted_text, decoded_details = caesar_cipher(text, shift)
+        shifts = st.text_input("Enter shift values separated by space:")
+        if st.button("Encrypt"):
+            encrypted_text, decoded_details = caesar_cipher(text, shifts)
             st.success("Encryption Successful!")
             st.write("### Encryption Results")
             st.write("Original Text:")
             st.write(text)
-            st.write("Shift Value:")
-            st.write(shift)
+            st.write("Shift Values:")
+            st.write(shifts)
             st.write("Encrypted Text:")
             st.write(encrypted_text)
             st.write("Decoded Details:")
@@ -47,15 +51,15 @@ def main():
             st.table(decoded_table)
     elif option == "Decryption":
         text = st.text_input("Enter text to decrypt:")
-        shift = st.number_input("Enter the shift value:", min_value=1, max_value=25, value=3)
-        if st.button("Decryption"):
-            decrypted_text, decoded_details = caesar_cipher(text, -shift)
+        shifts = st.text_input("Enter shift values separated by space:")
+        if st.button("Decrypt"):
+            decrypted_text, decoded_details = caesar_cipher(text, shifts)
             st.success("Decryption Successful!")
             st.write("### Decryption Results")
             st.write("Encrypted Text:")
             st.write(text)
-            st.write("Shift Value:")
-            st.write(shift)
+            st.write("Shift Values:")
+            st.write(shifts)
             st.write("Decrypted Text:")
             st.write(decrypted_text)
             st.write("Decoded Details:")
