@@ -90,6 +90,6 @@ if __name__ == "__main__":
                         st.error("Decrypted data contains non-ASCII characters.")
                 except UnicodeDecodeError:
                     decrypted_data_int = int.from_bytes(decrypted_data, "big")
-                    st.write("Decrypted data:", decrypted_data_int)
+                    st.write("Decrypted result:", decrypted_data_int)
             except ValueError as e:
                 st.error(str(e))
