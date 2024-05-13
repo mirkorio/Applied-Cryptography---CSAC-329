@@ -1,8 +1,8 @@
 import streamlit as st
+import io
 
 st.header("XOR Cipher - Encryption and Decryption")
 
-# Define xor_encrypt function outside the blocks to make it accessible to both modes
 def xor_encrypt(plaintext, key):
     """Encrypts plaintext using XOR cipher with the given key"""
     ciphertext = bytearray()
@@ -21,9 +21,11 @@ def xor_encrypt(plaintext, key):
 
     return ciphertext, output_details
 
-mode = st.radio("Choose mode:", ["Encryption", "Decryption"])
+def xor_decrypt(ciphertext, key):
+    """Decrypts ciphertext using XOR cipher with the given key"""
+    return xor_encrypt(ciphertext, key)  
 
-if mode == "Encryption":
+def encrypt_text():
     input_text = st.text_area("Plain Text: ")
     plaintext = input_text.encode('utf-8')  # Encode using UTF-8
 
@@ -41,10 +43,10 @@ if mode == "Encryption":
             encrypted_text, output_details = xor_encrypt(plaintext, key)
             st.write("Ciphertext:", encrypted_text.hex())
             
-            st.subheader("Output:")
+            st.subheader("Encryption Details:")
             st.table(output_details)
 
-elif mode == "Decryption":
+def decrypt_text():
     input_text = st.text_area("Encrypted Text: ")
     ciphertext = bytes.fromhex(input_text)  # Convert hex string back to bytes
 
@@ -52,15 +54,50 @@ elif mode == "Decryption":
     key = key.encode('utf-8')  # Encode using UTF-8
 
     if st.button("Decrypt"):
-        def xor_decrypt(ciphertext, key):
-            """Decrypts ciphertext using XOR cipher with the given key"""
-            return xor_encrypt(ciphertext, key)  
-
         if not ciphertext or not key:
             st.write("Invalid, Enter your ciphertext and key!")
         else:
             decrypted_text, output_details = xor_decrypt(ciphertext, key)
             st.write("Decrypted:", decrypted_text.decode('utf-8'))
             
-            st.write("Details:")
+            st.write("Decryption Details:")
             st.table(output_details)
+
+def encrypt_file():
+    file = st.file_uploader("Upload File to Encrypt", type=["txt", "pdf", "docx"])
+    if file is not None:
+        file_contents = file.read()
+        key = st.text_input("Key: ")
+        key = key.encode('utf-8')  # Encode using UTF-8
+
+        if st.button("Encrypt File"):
+            encrypted_text, _ = xor_encrypt(file_contents, key)
+            st.write("Encryption Successful!")
+
+            # Download the encrypted file
+            st.download_button(label="Download Encrypted File", data=io.BytesIO(encrypted_text), file_name=file.name)
+
+def decrypt_file():
+    file = st.file_uploader("Upload File to Decrypt", type=["txt", "pdf", "docx"])
+    if file is not None:
+        file_contents = file.read()
+        key = st.text_input("Key: ")
+        key = key.encode('utf-8')  # Encode using UTF-8
+
+        if st.button("Decrypt File"):
+            decrypted_text, _ = xor_decrypt(file_contents, key)
+            st.write("Decryption Successful!")
+
+            # Download the decrypted file
+            st.download_button(label="Download Decrypted File", data=io.BytesIO(decrypted_text), file_name=file.name)
+
+mode = st.radio("Choose mode:", ["Text Encryption", "Text Decryption", "File Encryption", "File Decryption"])
+
+if mode == "Text Encryption":
+    encrypt_text()
+elif mode == "Text Decryption":
+    decrypt_text()
+elif mode == "File Encryption":
+    encrypt_file()
+elif mode == "File Decryption":
+    decrypt_file()
