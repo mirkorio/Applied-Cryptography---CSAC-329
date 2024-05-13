@@ -79,7 +79,7 @@ elif mode == "Decrypt":
             decrypted_text, output_details = xor_decrypt(ciphertext, key)
             st.write("Decrypted:", decrypted_text.decode())
             
-            st.subheader("Output:")
+            st.write("Details:")
             st.table(output_details)
 
 
