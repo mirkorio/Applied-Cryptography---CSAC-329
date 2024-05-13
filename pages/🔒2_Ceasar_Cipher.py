@@ -7,7 +7,7 @@ def caesar_cipher(text, shifts):
     shift_index = 0
     
     for char in text:
-        if char.isalpha():
+        if char.isalnum():
             original_char = char
             shift = shifts[shift_index % len(shifts)]
             shift_index += 1
@@ -37,22 +37,23 @@ def caesar_decipher(text, shifts):
     shifts = list(map(int, shifts.split()))
     
     for char in text:
-        if char.isalpha():
+        if char.isalnum():
             shift = shifts[shift_index % len(shifts)]
             shift_index += 1
             shifted = ord(char) - shift
             if char.islower():
-                if shifted > ord('z'):
-                    shifted -= 26
-                elif shifted < ord('a'):
+                if shifted < ord('a'):
                     shifted += 26
+                elif shifted > ord('z'):
+                    shifted -= 26
             elif char.isupper():
-                if shifted > ord('Z'):
-                    shifted -= 26
-                elif shifted < ord('A'):
+                if shifted < ord('A'):
                     shifted += 26
-            decrypted_text += chr(shifted)
-            decoded_details.append((char, shift, chr(shifted)))
+                elif shifted > ord('Z'):
+                    shifted -= 26
+            decrypted_char = chr(shifted)
+            decoded_details.append((char, shift, decrypted_char))
+            decrypted_text += decrypted_char
         else:
             decrypted_text += char
             decoded_details.append((char, "N/A", char))
