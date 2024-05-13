@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.header("XOR Cipher")
+st.header("XOR Cipher - Encryption and Decryption")
 
 # Define xor_encrypt function outside the blocks to make it accessible to both modes
 def xor_encrypt(plaintext, key):
@@ -21,9 +21,9 @@ def xor_encrypt(plaintext, key):
 
     return ciphertext, output_details
 
-mode = st.radio("Mode", ["Encrypt", "Decrypt"])
+mode = st.radio("Choose mode:", ["Encryption", "Decryption"])
 
-if mode == "Encrypt":
+if mode == "Encryption":
     input_text = st.text_area("Plain Text: ")
     plaintext = input_text.encode('utf-8')  # Encode using UTF-8
 
@@ -44,7 +44,7 @@ if mode == "Encrypt":
             st.subheader("Output:")
             st.table(output_details)
 
-elif mode == "Decrypt":
+elif mode == "Decryption":
     input_text = st.text_area("Encrypted Text: ")
     ciphertext = bytes.fromhex(input_text)  # Convert hex string back to bytes
 
