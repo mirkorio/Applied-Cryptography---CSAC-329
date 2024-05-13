@@ -2,6 +2,9 @@ import streamlit as st
 import io
 
 st.header("XOR Cipher - Encryption and Decryption")
+st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
+    <p style="text-align: justify; color: white;">The XOR cipher is commonly used as a component in more complex ciphers. When using a constant repeating key, a simple XOR cipher can be easily broken through frequency analysis. However, its simplicity and computational efficiency make it useful for hiding information when strong security isn’t required. The XOR cipher is often employed in computer malware to hinder reverse engineering. If the key is random and at least as long as the message, the XOR cipher becomes more secure.</p>
+    </div>""", unsafe_allow_html=True)
 
 def xor_encrypt(plaintext, key):
     """Encrypts plaintext using XOR cipher with the given key"""
