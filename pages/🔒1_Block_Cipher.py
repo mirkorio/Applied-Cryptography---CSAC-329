@@ -30,9 +30,13 @@ def xor_decrypt_block(ciphertext_block, key):
 
 
 def xor_encrypt(plaintext, key, block_size):
-    encrypted_data = b''
+    if isinstance(plaintext, str):
+        plaintext = plaintext.encode()
+    elif isinstance(plaintext, int):
+        plaintext = str(plaintext).encode()
     padded_plaintext = pad(plaintext, block_size)
-    for x, i in enumerate(range(0, len(padded_plaintext), block_size)):
+    encrypted_data = b''
+    for i in range(0, len(padded_plaintext), block_size):
         plaintext_block = padded_plaintext[i:i+block_size]
         encrypted_block = xor_encrypt_block(plaintext_block, key)
         encrypted_data += encrypted_block
@@ -41,7 +45,7 @@ def xor_encrypt(plaintext, key, block_size):
 
 def xor_decrypt(ciphertext, key, block_size):
     decrypted_data = b''
-    for x, i in enumerate(range(0, len(ciphertext), block_size)):
+    for i in range(0, len(ciphertext), block_size):
         ciphertext_block = ciphertext[i:i+block_size]
         decrypted_block = xor_decrypt_block(ciphertext_block, key)
         decrypted_data += decrypted_block
@@ -63,10 +67,9 @@ if __name__ == "__main__":
             if block_size not in [8, 16, 32, 64, 128]:
                 st.error("Block size must be one of 8, 16, 32, 64, or 128 bytes")
             else:
-                plaintext = bytes(plaintext.encode())
                 key = bytes(key.encode())
                 key = pad(key, block_size)
-                ciphertext = xor_encrypt(plaintext,key,block_size)
+                ciphertext = xor_encrypt(plaintext, key, block_size)
                 st.write("Encrypted data:", ciphertext.hex())
     
     elif mode == "Decryption":
@@ -76,9 +79,17 @@ if __name__ == "__main__":
         
         if st.button("Decrypt"):
             try:
-                ciphertext = bytes.fromhex(ciphertext)
                 key = bytes(key.encode())
-                decrypted_data = xor_decrypt(ciphertext,key,block_size)
-                st.write("Decrypted data:", decrypted_data.decode())
+                ciphertext = bytes.fromhex(ciphertext)
+                decrypted_data = xor_decrypt(ciphertext, key, block_size)
+                try:
+                    decrypted_data_str = decrypted_data.decode()
+                    if all(ord(c) < 128 for c in decrypted_data_str):
+                        st.write("Decrypted data:", decrypted_data_str)
+                    else:
+                        st.error("Decrypted data contains non-ASCII characters.")
+                except UnicodeDecodeError:
+                    decrypted_data_int = int.from_bytes(decrypted_data, "big")
+                    st.write("Decrypted data:", decrypted_data_int)
             except ValueError as e:
                 st.error(str(e))
