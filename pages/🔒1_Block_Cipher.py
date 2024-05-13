@@ -64,7 +64,7 @@ def main():
     mode = st.radio("Choose mode:", ("Text Encryption", "Text Decryption", "File Encryption", "File Decryption"))
     
     if mode == "Text Encryption":
-        plaintext = st.text_input("Enter plaintext:")
+        plaintext = st.text_area("Enter plaintext:")
         key = st.text_input("Enter key:")
         block_size = st.number_input("Enter block size", value=8, step=8)
         
@@ -77,7 +77,7 @@ def main():
                 st.write("Encrypted data:", ciphertext.hex())
     
     elif mode == "Text Decryption":
-        ciphertext = st.text_input("Enter ciphertext (in hexadecimal format):")
+        ciphertext = st.text_area("Enter ciphertext (in hexadecimal format):")
         key = st.text_input("Enter key:")
         block_size = st.number_input("Enter block size", value=8, step=8)
         
