@@ -2,6 +2,9 @@ import streamlit as st
 import io
 
 st.header("Block Cipher - XOR Encryption and Decryption")
+st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
+    <p style="text-align: justify; color: white;">A block cipher is a symmetric cryptographic algorithm that operates on a fixed-size block of data using a shared, secret key. During encryption, plaintext is transformed into ciphertext. The same key is used for both encryption and decryption.</p>
+    </div>""", unsafe_allow_html=True)
 
 def pad(data, block_size):
     padding_length = block_size - len(data) % block_size
