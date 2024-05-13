@@ -129,11 +129,11 @@ def decrypt_file(file):
             st.error(f"Error: {e}")
 
 def main():
-    st.header("Caesar Cipher Encryption and Decryption")
+    st.header("Caesar Cipher - Encryption and Decryption")
     st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">The Caesar cipher, also known as Caesar’s code, is a monoalphabetic substitution cipher. In this technique, each letter in the plaintext is replaced by another letter located a fixed number of positions down the alphabet. For example, with a left shift of 3, “D” becomes “A,” “E” becomes “B,” and so on. The method is named after Julius Caesar, who used it in his private correspondence.</p>
     </div>""", unsafe_allow_html=True)
-    
+
     option = st.radio("Choose mode:", ["Text Encryption", "Text Decryption", "File Encryption", "File Decryption"])
 
     if option == "Text Encryption":
