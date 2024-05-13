@@ -61,14 +61,14 @@ def xor_decrypt(ciphertext, key, block_size):
         return b"Decryption failed due to invalid padding"
 
 def main():
-    mode = st.radio("Choose mode:", ("Encrypt Text", "Decrypt text", "Encrypt File", "Decrypt File"))
+    mode = st.radio("Choose mode:", ("Text Encryption", "Text Decryption", "File Encryption", "File Decryption"))
     
-    if mode == "Encrypt Text":
+    if mode == "Text Encryption":
         plaintext = st.text_input("Enter plaintext:")
         key = st.text_input("Enter key:")
         block_size = st.number_input("Enter block size", value=8, step=8)
         
-        if st.button("Encrypt Text"):
+        if st.button("Text Encryption"):
             if block_size not in [8, 16, 32, 64, 128]:
                 st.error("Block size must be one of 8, 16, 32, 64, or 128 bytes")
             else:
@@ -76,12 +76,12 @@ def main():
                 ciphertext = xor_encrypt(plaintext, key, block_size)
                 st.write("Encrypted data:", ciphertext.hex())
     
-    elif mode == "Decrypt text":
+    elif mode == "Text Decryption":
         ciphertext = st.text_input("Enter ciphertext (in hexadecimal format):")
         key = st.text_input("Enter key:")
         block_size = st.number_input("Enter block size", value=8, step=8)
         
-        if st.button("Decrypt text"):
+        if st.button("Text Decryption"):
             try:
                 key = bytes(key.encode())
                 ciphertext = bytes.fromhex(ciphertext)
@@ -93,13 +93,13 @@ def main():
                 else:
                     st.error(str(e))
     
-    elif mode == "Encrypt File":
+    elif mode == "File Encryption":
         file = st.file_uploader("Upload File")
         if file is not None:
             file_contents = io.BytesIO(file.read())
             key = st.text_input("Enter key:")
             block_size = st.number_input("Enter block size", value=8, step=8)
-            if st.button("Encrypt File"):
+            if st.button("File Encryption"):
                 if block_size not in [8, 16, 32, 64, 128]:
                     st.error("Block size must be one of 8, 16, 32, 64, or 128 bytes")
                 else:
@@ -109,13 +109,13 @@ def main():
                     st.write("Download the encrypted file below.")
                     st.download_button("Download Encrypted File", encrypted_data, file_name="encrypted_file.bin", mime="application/octet-stream")
     
-    elif mode == "Decrypt File":
+    elif mode == "File Decryption":
         file = st.file_uploader("Upload Encrypted File")
         if file is not None:
             file_contents = io.BytesIO(file.read())
             key = st.text_input("Enter key:")
             block_size = st.number_input("Enter block size", value=8, step=8)
-            if st.button("Decrypt File"):
+            if st.button("File Decryption"):
                 try:
                     key = bytes(key.encode())
                     decrypted_data = xor_decrypt(file_contents.read(), key, block_size)
