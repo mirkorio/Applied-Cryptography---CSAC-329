@@ -27,7 +27,7 @@ def hash_file(file, hash_type):
     return hasher.hexdigest()
 
 # Streamlit app
-st.title("Hashing Functions")
+st.header("Hashing Functions")
 
 # Choose hashing technique
 hash_type = st.selectbox("Choose a hash function:", ("MD5", "SHA-1", "SHA-256", "SHA-512"))

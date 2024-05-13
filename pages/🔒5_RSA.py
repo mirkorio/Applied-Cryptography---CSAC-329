@@ -44,7 +44,7 @@ def decrypt_message(encrypted_message, d, n):
     return ''.join(decrypted_chars)
 
 # Streamlit app
-st.title("RSA Encryption and Decryption")
+st.header("RSA - Encryption and Decryption")
 
 p = st.number_input("Enter Value of p (Large Prime Number):", min_value=2, step=1)
 q = st.number_input("Enter Value of q (Large Prime Number):", min_value=2, step=1)

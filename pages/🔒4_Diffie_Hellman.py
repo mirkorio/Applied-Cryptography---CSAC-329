@@ -46,7 +46,7 @@ def decrypt_message(encrypted_message, key):
 
 # Streamlit UI
 def main():
-    st.title("Diffie-Hellman Key Exchange")
+    st.header("Diffie-Hellman Key Exchange")
 
     p = st.number_input("Enter a prime number:", value=5, step=1)
     if not is_prime(p):
