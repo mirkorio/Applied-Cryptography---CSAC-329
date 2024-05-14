@@ -48,6 +48,7 @@ st.header("RSA - Encryption and Decryption")
 st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">RSA (Rivest-Shamir-Adleman) is one of the first public-key cryptosystems and is widely used for secure data transmission. It was invented by Ron Rivest, Adi Shamir, and Leonard Adleman in 1977 while they were at MIT. The RSA algorithm involves generating a public-private key pair, where the public key can be freely distributed and used for encryption, while the private key is kept secret and used for decryption. The security of RSA relies on the practical difficulty of factoring the product of two large prime numbers, the “factoring problem”.</p>
     </div>""", unsafe_allow_html=True)
+st.write("---")
 
 p = st.number_input("Enter Value of p (Large Prime Number):", min_value=2, step=1)
 q = st.number_input("Enter Value of q (Large Prime Number):", min_value=2, step=1)

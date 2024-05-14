@@ -33,7 +33,8 @@ st.header("Hashing Functions")
 hash_descriptions = {
     "MD5": """<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">MD5 is a widely used cryptographic hash function that produces a 128-bit hash value. It was designed by Ronald Rivest in 1991 as a replacement for the earlier MD4 hash function. Historically, MD5 was used for cryptographic purposes, but it has been found to have extensive vulnerabilities. It remains suitable for non-cryptographic purposes, such as data integrity verification.</p>
-    </div>""",
+    </div>
+    """,
     "SHA-1": """<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">The Secure Hash Algorithm 1 (SHA-1) is a cryptographic computer security algorithm. It was created by the US National Security Agency in 1995, after the SHA-0 algorithm in 1993, and it is part of the Digital Signature Algorithm or the Digital Signature Standard (DSS). SHA-1 is commonly used in cryptographic applications and environments where the need for data integrity is high. It is also used to index hash functions and identify data corruption and checksum errors.</p>
     </div>""",
@@ -45,14 +46,14 @@ hash_descriptions = {
 SHA-512 is part of the SHA-2 family and produces a 512-bit hash value. It offers even greater collision resistance than SHA-256. SHA-512 is used in various security protocols, ensuring data integrity and authenticity. It’s commonly employed in TLS, SSL, and other cryptographic applications.</p>
     </div>"""
 }
-
 # Choose hashing technique
 hash_type = st.selectbox("Choose a hash function:", ("MD5", "SHA-1", "SHA-256", "SHA-512"))
 
 if hash_type:
     st.header(f"{hash_type} Hashing")
     st.markdown(hash_descriptions[hash_type], unsafe_allow_html=True)
-
+    
+    st.write("---")
     # Ask for input method
     input_method = st.radio("Choose input method:", ("Text", "File"))
 

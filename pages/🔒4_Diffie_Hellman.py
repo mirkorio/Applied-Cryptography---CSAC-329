@@ -50,6 +50,7 @@ def main():
     st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">The Diffie-Hellman key exchange algorithm, developed by Whitfield Diffie and Martin Hellman in 1976, is one of the earliest practical implementations of public-key cryptography. It allows two parties to securely establish a shared secret key over an insecure communication channel, without the need for prior shared secrets. The algorithm relies on the mathematical properties of modular exponentiation to derive a shared secret key.</p>
     </div>""", unsafe_allow_html=True)
+    st.write("---")
 
     p = st.number_input("Enter a prime number:", value=5, step=1)
     if not is_prime(p):

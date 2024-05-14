@@ -5,6 +5,7 @@ st.header("Block Cipher - XOR Encryption and Decryption")
 st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">A block cipher is a symmetric cryptographic algorithm that operates on a fixed-size block of data using a shared, secret key. During encryption, plaintext is transformed into ciphertext. The same key is used for both encryption and decryption.</p>
     </div>""", unsafe_allow_html=True)
+st.write("---")
 
 def pad(data, block_size):
     padding_length = block_size - len(data) % block_size
@@ -68,7 +69,7 @@ def main():
     
     if mode == "Text Encryption":
         plaintext = st.text_area("Enter plaintext:")
-        key = st.text_input("Enter key:")
+        key = st.text_input("Enter key:(ex.password)")
         block_size = st.number_input("Enter block size", value=8, step=8)
         
         if st.button("Text Encryption"):
@@ -81,7 +82,7 @@ def main():
     
     elif mode == "Text Decryption":
         ciphertext = st.text_area("Enter ciphertext (in hexadecimal format):")
-        key = st.text_input("Enter key:")
+        key = st.text_input("Enter key:(ex.password)")
         block_size = st.number_input("Enter block size", value=8, step=8)
         
         if st.button("Text Decryption"):
@@ -100,7 +101,7 @@ def main():
         file = st.file_uploader("Upload File")
         if file is not None:
             file_contents = io.BytesIO(file.read())
-            key = st.text_input("Enter key:")
+            key = st.text_input("Enter key:(ex.password)")
             block_size = st.number_input("Enter block size", value=8, step=8)
             if st.button("File Encryption"):
                 if block_size not in [8, 16, 32, 64, 128]:
@@ -116,7 +117,7 @@ def main():
         file = st.file_uploader("Upload Encrypted File")
         if file is not None:
             file_contents = io.BytesIO(file.read())
-            key = st.text_input("Enter key:")
+            key = st.text_input("Enter key:(ex.password)")
             block_size = st.number_input("Enter block size", value=8, step=8)
             if st.button("File Decryption"):
                 try:

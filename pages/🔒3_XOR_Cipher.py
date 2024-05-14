@@ -5,6 +5,7 @@ st.header("XOR Cipher - Encryption and Decryption")
 st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">The XOR cipher is commonly used as a component in more complex ciphers. When using a constant repeating key, a simple XOR cipher can be easily broken through frequency analysis. However, its simplicity and computational efficiency make it useful for hiding information when strong security isn’t required. The XOR cipher is often employed in computer malware to hinder reverse engineering. If the key is random and at least as long as the message, the XOR cipher becomes more secure.</p>
     </div>""", unsafe_allow_html=True)
+st.write("---")
 
 def xor_encrypt(plaintext, key):
     """Encrypts plaintext using XOR cipher with the given key"""
@@ -32,7 +33,7 @@ def encrypt_text():
     input_text = st.text_area("Plain Text: ")
     plaintext = input_text.encode('utf-8')  # Encode using UTF-8
 
-    key = st.text_input("Key: ")
+    key = st.text_input("Key:(ex.password)")
     key = key.encode('utf-8')  # Encode using UTF-8
 
     if st.button("Encrypt"):
@@ -53,7 +54,7 @@ def decrypt_text():
     input_text = st.text_area("Encrypted Text: ")
     ciphertext = bytes.fromhex(input_text)  # Convert hex string back to bytes
 
-    key = st.text_input("Key: ")
+    key = st.text_input("Key:(ex.password)")
     key = key.encode('utf-8')  # Encode using UTF-8
 
     if st.button("Decrypt"):
@@ -70,7 +71,7 @@ def encrypt_file():
     file = st.file_uploader("Upload File to Encrypt", type=["txt", "pdf", "docx"])
     if file is not None:
         file_contents = file.read()
-        key = st.text_input("Key: ")
+        key = st.text_input("Key:(ex.password)")
         key = key.encode('utf-8')  # Encode using UTF-8
 
         if st.button("Encrypt File"):
@@ -84,7 +85,7 @@ def decrypt_file():
     file = st.file_uploader("Upload File to Decrypt", type=["txt", "pdf", "docx"])
     if file is not None:
         file_contents = file.read()
-        key = st.text_input("Key: ")
+        key = st.text_input("Key:(ex.password)")
         key = key.encode('utf-8')  # Encode using UTF-8
 
         if st.button("Decrypt File"):

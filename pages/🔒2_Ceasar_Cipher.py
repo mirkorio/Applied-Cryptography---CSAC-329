@@ -62,7 +62,7 @@ def caesar_decipher(text, shifts):
 
 def encrypt_text():
     text = st.text_area("Enter text to encrypt:")
-    shifts = st.text_input("Enter shift values separated by space:")
+    shifts = st.text_input("Enter shift values separated by space: (ex. 1 2 3)")
     if st.button("Encrypt"):
         encrypted_text, encoded_details = caesar_cipher(text, shifts)
         st.success("Encryption Successful!")
@@ -79,7 +79,7 @@ def encrypt_text():
 
 def decrypt_text():
     text = st.text_area("Enter text to decrypt:")
-    shifts = st.text_input("Enter shift values separated by space:")
+    shifts = st.text_input("Enter shift values separated by space: (ex. 1 2 3)")
     if st.button("Decrypt"):
         decrypted_text, decoded_details = caesar_decipher(text, shifts)
         st.success("Decryption Successful!")
@@ -95,7 +95,7 @@ def decrypt_text():
         st.table(decoded_table)
 
 def encrypt_file(file):
-    shifts = st.text_input("Enter shift values separated by space:")
+    shifts = st.text_input("Enter shift values separated by space: (ex. 1 2 3)")
     if st.button("Encrypt File"):
         try:
             # Read file contents
@@ -112,7 +112,7 @@ def encrypt_file(file):
             st.error(f"Error: {e}")
 
 def decrypt_file(file):
-    shifts = st.text_input("Enter shift values separated by space:")
+    shifts = st.text_input("Enter shift values separated by space: (ex. 1 2 3)")
     if st.button("Decrypt File"):
         try:
             # Read file contents
@@ -133,6 +133,7 @@ def main():
     st.markdown("""<div style="background-color:#222831;padding:10px;border-radius:10px">
     <p style="text-align: justify; color: white;">The Caesar cipher, also known as Caesar’s code, is a monoalphabetic substitution cipher. In this technique, each letter in the plaintext is replaced by another letter located a fixed number of positions down the alphabet. For example, with a left shift of 3, “D” becomes “A,” “E” becomes “B,” and so on. The method is named after Julius Caesar, who used it in his private correspondence.</p>
     </div>""", unsafe_allow_html=True)
+    st.write("---")
 
     option = st.radio("Choose mode:", ["Text Encryption", "Text Decryption", "File Encryption", "File Decryption"])
 
